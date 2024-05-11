@@ -45,10 +45,7 @@ contract RaxCoin is ERC20Burnable, Ownable {
      * @param _amount Amount of tokens that needs to be minted.
      * @dev Function to mint tokens
      */
-    function mint(
-        address _to,
-        uint256 _amount
-    ) external onlyOwner returns (bool) {
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
         if (_to == address(0)) {
             revert RaxCoin__NotZeroAddress();
         }
