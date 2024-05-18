@@ -25,10 +25,7 @@ contract RaxCoin is ERC20Burnable, Ownable {
      * @param _amount Amount of tokens that needs to be minted.
      * @dev Function to mint tokens
      */
-    function mint(
-        address _to,
-        uint256 _amount
-    ) external onlyOwner returns (bool) {
+    function mint(address _to, uint256 _amount) external onlyOwner returns (bool) {
         if (_to == address(0)) {
             revert RaxCoin__NotZeroAddress();
         }
@@ -46,14 +43,14 @@ contract RaxCoin is ERC20Burnable, Ownable {
      * @param _amount Amount of Tokens that needs to be burned
      * @dev Checks the custom logic to if tokens are allowed to burn and then call burn function from OZ library.
      */
-    function burn(uint256 _amount) public override onlyOwner {
+    function burn(uint256 _amount) public override {
         uint256 balance = balanceOf(msg.sender);
 
         if (_amount <= 0) {
             revert RaxCoin__MustBeMoreThanZero();
         }
 
-        if (_amount < balance) {
+        if (_amount > balance) {
             revert RaxCoin__BurnAmountExceedsBalance();
         }
 
