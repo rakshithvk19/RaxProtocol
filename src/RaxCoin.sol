@@ -42,9 +42,14 @@ contract RaxCoin is ERC20Burnable, Ownable {
     /**
      * @param _amount Amount of Tokens that needs to be burned
      * @dev Checks the custom logic to if tokens are allowed to burn and then call burn function from OZ library.
+     * @dev burns the tokens of the address that invokes the function.
      */
     function burn(uint256 _amount) public override {
         uint256 balance = balanceOf(msg.sender);
+
+        if (msg.sender == address(0)) {
+            revert RaxCoin__NotZeroAddress();
+        }
 
         if (_amount <= 0) {
             revert RaxCoin__MustBeMoreThanZero();
